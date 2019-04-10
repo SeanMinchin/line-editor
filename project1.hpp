@@ -73,16 +73,18 @@ public:
         }
         if(index == 0) {
             prepend(std::move(value));
+        } else if (index == size) {
+            append(std::move(value));
         } else {
             Node<T>* current = head;
-            Node<T>* previous = new Node<T>(value);
+            Node<T>* previous = nullptr;
             for(int i = 0; i < index; ++i) {
                 if(i == index - 1) {
                     previous = current;
                 }
                 current = current->next;
             }
-            previous->next = new Node<T>(value);
+            previous->next = new Node<T>(std::move(value));
             previous->next->next = current;
             ++size;
         }
